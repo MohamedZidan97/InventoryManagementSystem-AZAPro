@@ -1,0 +1,85 @@
+﻿@model IEnumerable<GetSuppliersResponse>
+@{
+    ViewData["Title"] = "Get All Suppliers";
+}
+
+<h2 class="text-center">Suppliers</h2>
+
+<a asp-action="AddSupplier" class="btn btn-primary mb-3">Add New Supplier</a>
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/Files/Images/inventorybackground.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .table-container {
+        margin: 50px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        max-width: 800px; 
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 15px; 
+        text-align: left;
+        font-size: 1.1rem; 
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    th {
+        background-color: #007bff; 
+        color: #fff; 
+        border-bottom: 2px solid #0056b3;
+    }
+
+    tr:hover {
+        background-color: #0056b3;
+        cursor: pointer; 
+    }
+
+    .btn {
+        margin-right: 5px; 
+    }
+
+
+        h2 {
+            font-size: 1.8rem; 
+        }
+    }
+</style>
+
+<div class="table-container">
+    <table class="table">
+        <thead class="text-black bg-secondary">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var supplier in Model)
+            {
+                <tr>
+                    <td>@supplier.SupplierId</td>
+                    <td>@supplier.SupplierName</td>
+                    <td>
+                        <a asp-controller="Supplier" asp-action="DetailsOfSupplier" asp-route-id="@supplier.SupplierId" class="btn btn-info btn-sm">Details</a>
+                        <a asp-controller="Supplier" asp-action="DeleteSupplier" asp-route-id="@supplier.SupplierId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

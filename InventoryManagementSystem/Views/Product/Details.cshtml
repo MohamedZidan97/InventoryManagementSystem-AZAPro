@@ -1,0 +1,109 @@
+﻿@model GetProductByIdResponse
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+<style>
+    body {
+        background-image: url('@Url.Content("~/Files/Images/inventorybackground.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .card {
+        max-width: 900px;
+        margin: 50px auto;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            object-fit: cover;
+            border-radius: 10px 0 0 10px;
+        }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .btn {
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-weight: 500;
+        margin-top: 10px;
+        transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .btn-warning {
+        background-color: #f0ad4e;
+        color: white;
+    }
+
+        .btn-warning:hover {
+            background-color: #ec971f;
+            box-shadow: 0 8px 16px rgba(240, 173, 78, 0.5);
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            box-shadow: 0 8px 16px rgba(108, 117, 125, 0.5);
+        }
+
+    .card-text strong {
+        color: #000;
+    }
+</style>
+
+<h2 class="text-center mb-4">Product Details</h2>
+
+<div class="card">
+    <div class="row g-0">
+        <div class="col-md-4">
+            @if (!string.IsNullOrEmpty(Model.Photo))
+            {
+                <img src="~/Files/Images/@Model.Photo" class="img-fluid" alt="Product Image" />
+            }
+            else
+            {
+                <img src="~/Images/no-image.png" class="img-fluid" alt="No Image Available" />
+            }
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Model.ProductName</h5>
+                <p class="card-text"><strong>Price:</strong> @Model.Price.ToString("C")</p>
+                <p class="card-text"><strong>Low Stock Level:</strong> @Model.LowStock</p>
+                <p class="card-text"><strong>Sub Category:</strong> @Model.SubCategoryName</p>
+                <p class="card-text"><strong>Supplier:</strong> @Model.SupplierName</p>
+                <a asp-controller="Product" asp-action="UpdateProduct" asp-route-ProductId="@Model.ProductId" class="btn btn-warning">Edit Product</a>
+                <a asp-controller="Product" asp-action="GetAllProducts" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>

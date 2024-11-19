@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "GetAllProducts";
+}
+@model IEnumerable<GetProductsResponse>
+ <h1>GetAllProducts</h1>
+ <style>
+    body {
+        background-image: url('@Url.Content("~/Files/Images/inventorybackground.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+ </style>
+<table class="table table-striped table-bordered" >
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Photo</th>
+            <th>Details</th>
+            <th>Stock Level</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody class="bg-secondary">
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductId</td>
+                <td>@product.ProductName</td>
+                <td>@product.Price</td> 
+              
+                <td>
+                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        <img src="@Url.Content("~/Files/images/" + product.ImageUrl)" alt="@product.ProductName" style="width: 50px; height: 50px;" />
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </td>
+                <td><a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary">Details</a></td>
+
+                <td><a asp-controller="StockLevel" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-success">Stock Level</a></td>
+
+                <td><a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@product.ProductId" class="btn btn-danger">Delete</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+                <hr />
+<div class="card-header py-3">
+    <a asp-controller="Product" asp-action="AddProduct" class="btn btn-primary">Add Product</a>
+</div>

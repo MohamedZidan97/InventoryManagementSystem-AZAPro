@@ -1,0 +1,72 @@
+﻿@model AddStockLevelRequest
+
+@{
+    ViewData["Title"] = "Add Operation on Stock of Product";
+}
+<style>
+    body {
+        background-image: url('@Url.Content("~/Files/Images/inventorybackground.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .center-form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .small-input {
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+</style>
+
+<h1 class="h4 text-center">Add Operation on Stock of Product</h1>
+
+<div class="row justify-content-center">
+    <div class="col-sm-6 text-center">
+        <h3 class="h5">Current Stock: <strong>@ViewBag.CurrentStock</strong></h3>
+    </div>
+</div>
+<br />
+
+<form asp-action="AddOperationOnStockOfProduct" enctype="multipart/form-data" method="post" class="center-form d-flex flex-column align-items-center">
+    <div asp-validation-summary="All" class="text-danger mb-2 text-center"></div>
+
+    <input type="hidden" asp-for="ProductId" />
+    <input type="hidden" asp-for="Sell" />
+
+    <div class="form-group p-2 text-center" style="background-color: #f8f9fa; border-radius: 8px;">
+        <label asp-for="Quantity" class="control-label small" style="background-color: #e9ecef; padding: 5px; border-radius: 4px;"></label>
+        <input asp-for="Quantity" class="form-control form-control-sm small-input" style="background-color: #ffffff; border: 1px solid #ced4da;" />
+        <span asp-validation-for="Quantity" class="text-danger small"></span>
+    </div>
+    <br />
+
+    <div class="form-group p-2 text-center" style="background-color: #f8f9fa; border-radius: 8px;">
+        <label asp-for="DateUpdated" class="control-label small" style="background-color: #e9ecef; padding: 5px; border-radius: 4px;"></label>
+        <input asp-for="DateUpdated" class="form-control form-control-sm small-input" style="background-color: #ffffff; border: 1px solid #ced4da;" />
+        <span asp-validation-for="DateUpdated" class="text-danger small"></span>
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary btn-sm">
+        @if (Model.Sell)
+        {
+            @:SELL
+        }
+        else
+        {
+            @:BUY
+        }
+    </button>
+
+    <div class="mt-3">
+        <a asp-controller="StockLevel" asp-action="Details" asp-route-id="@Model.ProductId" class="btn btn-secondary btn-sm">Back to List</a>
+    </div>
+</form>

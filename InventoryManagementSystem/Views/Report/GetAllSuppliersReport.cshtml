@@ -1,0 +1,112 @@
+﻿@model IEnumerable<GetSuppliersResponse>
+
+@{
+    ViewData["Title"] = "Get All Suppliers Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center mb-4">Suppliers Report</h1>
+
+<div class="container">
+    <div class="table-responsive"> <!-- Added responsive wrapper -->
+        <table class="table table-hover table-bordered table-sm mx-auto"> <!-- Added mx-auto for centering -->
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Your Products</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="3" class="text-center">No suppliers found.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var supplier in Model)
+                    {
+                        <tr>
+                            <td>@supplier.SupplierId</td>
+                            <td>@supplier.SupplierName</td>
+                            <td>
+                                <a asp-controller="Report" asp-action="GetSupplierHasProductsReport" asp-route-id="@supplier.SupplierId" class="btn btn-success btn-sm">View Products</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/Files/Images/inventorybackground.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+        color: #333; 
+        font-size: 1.5rem; 
+        font-weight: bold; /* Make the header bold */
+    }
+
+    .table {
+        max-width: 600px; /* Set a maximum width for the table */
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        margin-top: 20px; 
+    }
+
+    .table th {
+        background-color: #007bff;
+        color: white;
+        text-align: center; 
+        font-size: 1rem; /* Increased font size for headers */
+        font-weight: bold; /* Make the header text bold */
+        border: 2px solid #0056b3; /* Add a border to header cells */
+    }
+
+    .table td {
+        font-size: 0.95rem; /* Increased font size for table data */
+        padding: 0.5rem; /* Consistent padding for compactness */
+        font-weight: bold; /* Make the cell text bold */
+        border: 1px solid #dee2e6; /* Add a border to table cells */
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .btn-success {
+        transition: background-color 0.3s, border-color 0.3s; 
+    }
+
+    .btn-success:hover {
+        background-color: #28a745;
+        border-color: #218838;
+    }
+
+    .text-center {
+        color: #666; 
+        font-style: italic; 
+    }
+
+    /* Responsive adjustments */
+   
+        h1 {
+            font-size: 1.2rem; /* Smaller font size on mobile */
+        }
+        .table th, .table td {
+            padding: 0.4rem; /* Reduced padding for a compact table */
+        }
+    
+</style>

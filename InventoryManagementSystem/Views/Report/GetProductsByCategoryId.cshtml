@@ -1,0 +1,92 @@
+﻿@model IEnumerable<GetProductsBySupplierIdResponse>
+
+@{
+    ViewData["Title"] = "Products by Category";
+}
+
+<h1 class="text-center">Products by Category</h1>
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/Files/Images/inventorybackground.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .table-container {
+        margin: 50px auto;
+        padding: 30px; 
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+        max-width: 1200px; 
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: transparent; /* Make table background transparent */
+    }
+
+    th, td {
+        padding: 20px; 
+        text-align: left;
+        font-size: 1.2rem; 
+        border: none; /* Remove border to make frame transparent */
+    }
+
+    th {
+        background-color: #007bff; /* Header background color */
+        color: #fff; /* Header text color */
+        border-bottom: 2px solid #ddd; /* Light border for header */
+    }
+
+    td {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Light border for table rows */
+        transition: background-color 0.3s; 
+    }
+
+    tr:hover {
+        background-color: #66b3ff; 
+        color: white; 
+    }
+
+    h1 {
+        font-size: 2.5rem; 
+        color: #000;
+        margin-bottom: 40px; 
+    }
+
+    .currency {
+        text-align: right;
+    }
+
+  
+
+        h1 {
+            font-size: 2rem; 
+        }
+    }
+</style>
+
+<div class="table-container">
+    <table class="table table-striped">
+        <thead class="bg-secondary">
+            <tr>
+                <th>Product Name</th>
+                <th class="currency">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.ProductName</td>
+                    <td class="currency">@product.Price.ToString("C")</td> 
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

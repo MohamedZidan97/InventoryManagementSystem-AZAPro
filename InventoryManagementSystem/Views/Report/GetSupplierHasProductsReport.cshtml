@@ -1,0 +1,100 @@
+﻿@model IEnumerable<GetProductsBySupplierIdResponse>
+
+@{
+    ViewData["Title"] = "Supplier Products Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center mb-4">Supplier Products Report</h1>
+
+<div class="container">
+    <div class="table-responsive"> 
+        <table class="table table-hover table-bordered table-sm mx-auto"> 
+            <thead class="thead-dark">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="2" class="text-center">No products found for this supplier.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.ProductName</td>
+                            <td>@String.Format("{0:C}", product.Price)</td> 
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<a asp-controller="Report" asp-action="GetAllSuppliersReport" class="btn btn-secondary ali">Back to List</a>
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/Files/Images/inventorybackground.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+        color: #333; 
+        font-size: 1.5rem; 
+        font-weight: bold; 
+    }
+
+    .table {
+        max-width: 600px; 
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        margin-top: 20px; 
+    }
+
+    .table th {
+        background-color: #007bff;
+        color: white;
+        text-align: center; 
+        font-size: 1rem; 
+        font-weight: bold; 
+        border: 2px solid #0056b3; 
+    }
+
+    .table td {
+        font-size: 0.95rem; 
+        padding: 0.5rem; 
+        font-weight: bold;
+        border: 1px solid #dee2e6; 
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .text-center {
+        color: #666; 
+        font-style: italic; 
+    }
+
+    /* Responsive adjustments */
+   
+        h1 {
+            font-size: 1.2rem; /* Smaller font size on mobile */
+        }
+        .table th, .table td {
+            padding: 0.4rem; /* Reduced padding for a compact table */
+        }
+    
+</style>

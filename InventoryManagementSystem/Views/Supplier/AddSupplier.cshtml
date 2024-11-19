@@ -1,0 +1,65 @@
+﻿@model AddSupplierRequest
+@{
+    ViewData["Title"] = "Add New Supplier";
+}
+
+<h2 class="text-center">Create Supplier</h2>
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/Files/Images/inventorybackground.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .btn {
+        width: 100%; 
+        font-size: 1.1rem;
+        padding: 10px;
+    }
+</style>
+
+<div class="form-container">
+    <form asp-action="AddSupplier" method="post">
+        <div class="form-group">
+            <label asp-for="SupplierName" class="control-label"></label>
+            <input asp-for="SupplierName" class="form-control" />
+            <span asp-validation-for="SupplierName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ContactInfo" class="control-label"></label>
+            <input asp-for="ContactInfo" class="form-control" />
+            <span asp-validation-for="ContactInfo" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

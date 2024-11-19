@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Low Stock Products";
+}
+@model InventoryManagementSystem.Controllers.StockLevelEndpoints.StockLevelController.ReportViewModel
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/Files/Images/inventorybackground.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h4.text-black {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        font-weight: bold; /
+    }
+
+    .card-body {
+        color: white;
+    }
+
+    .product-details {
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
+
+    .table {
+        border-radius: 8px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            font-weight: bold; 
+        }
+
+        .table td {
+            padding: 0.75rem; 
+            vertical-align: middle; 
+        }
+
+    .btn-outline-success {
+        border-color: #28a745; 
+        color: #28a745; 
+    }
+
+        .btn-outline-success:hover {
+            background-color: #28a745; 
+            color: white; 
+        }
+
+    .img-thumbnail {
+        border-radius: 5px; 
+    }
+</style>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mb-4">
+            <h4 class="text-black mb-4">Low Stock Products</h4>
+            <table class="table table-hover table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Photo</th>
+                        <th>Stock Level</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-secondary">
+                    @if (!Model.Products.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center">No low stock products available.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var product in Model.Products)
+                        {
+                            <tr>
+                                <td class="product-details">@product.ProductId</td>
+                                <td class="product-details">@product.ProductName</td>
+                                <td class="product-details">@String.Format("{0:C}", product.Price)</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                    {
+                                        <img src="@Url.Content("~/Files/images/" + product.ImageUrl)" alt="@product.ProductName" class="img-thumbnail" style="width: 50px; height: 50px;" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No Image</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a asp-controller="StockLevel" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-sm btn-outline-success text-black">Check Stock</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h4 class="text-black mb-4">Product Categories</h4>
+            <div class="card" style=" background-color: rgba(255, 255, 255, 0.9);">
+                <div class="card-body">
+                    <partial name="~/Views/StockLevel/GetCategoriesToAllPRoducts.cshtml" model="Model.Categories" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
